@@ -16,5 +16,6 @@
 @media (min-width: 1024px) {
   body {
     display: flex;
+    background-color: rgb(249, 249, 249);
   }
 }

@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import DashboardLayout from '@/components/Layout/DashboardLayout.vue'
+</script>
 
 <template>
-  <main>
-    <h1 class="text-3xl text-red-400 font-bold underline">Hello world!</h1>
-  </main>
+  <DashboardLayout>
+    <div>Technical Test Dashboard</div>
+  </DashboardLayout>
 </template>

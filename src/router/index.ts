@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginAdminView from '@/views/LoginAdminView.vue'
 import Cookies from 'universal-cookie'
+import UserView from '@/views/UserView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +18,9 @@ const router = createRouter({
       component: LoginAdminView,
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
+      path: '/user',
+      name: 'user',
+      component: UserView,
     },
   ],
 })
@@ -28,8 +29,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const cookies = new Cookies(null, { path: '/' })
   const token = cookies.get('auth')
+  console.log('trigger')
 
-  if (to.name === 'home' && !token) {
+  if (to.name !== 'login' && !token) {
     console.log('trigger 1')
     return router.replace({ path: '/login-admin' })
   }

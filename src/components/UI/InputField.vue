@@ -24,7 +24,7 @@ const { value, errorMessage, meta } = useField(props.name)
       v-model="value"
       :type="props.type || 'text'"
       :placeholder="props.placeholder"
-      class="p-3 border transition-all duration-150 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:border-orange-600 focus:ring-orange-600"
+      class="p-3 border transition-all h-8 duration-150 border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:border-orange-600 focus:ring-orange-600"
     />
     <span v-if="meta.touched && errorMessage" class="text-red-500 text-sm mt-1">
       {{ errorMessage }}

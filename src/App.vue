@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import 'primeicons/primeicons.css'
 </script>
 
 <template>
-  <div class="h-screen w-screen justify-center items-center flex">
+  <div class="h-screen w-screen flex">
     <RouterView />
   </div>
 </template>
