@@ -1,5 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
+import ButtonAction from '@/components/UI/ButtonAction.vue'
 import InputField from '@/components/UI/InputField.vue'
 import router from '@/router'
 import { loginApi } from '@/service/api/auth.api'
@@ -70,36 +71,7 @@ async function onSubmit(values: any, { resetForm }: { resetForm: () => void }) {
 
       <InputField name="username" label-name="Username" />
       <InputField type="password" name="password" label-name="Password" />
-      <button
-        :disabled="isSubmitting"
-        type="submit"
-        class="flex cursor-pointer font-semibold w-full p-3 rounded-lg items-center justify-center bg-orange-600"
-      >
-        <span v-if="!isSubmitting" class="text-white">Login</span>
-        <span v-else class="flex items-center gap-2 text-white">
-          <svg
-            class="animate-spin h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-            ></path>
-          </svg>
-          Loading...
-        </span>
-      </button>
+      <ButtonAction type="submit" button-name="Login" :disabled="isSubmitting" :is-loading="isSubmitting" />
     </Form>
   </div>
 </template>

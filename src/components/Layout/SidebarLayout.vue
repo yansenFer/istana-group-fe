@@ -13,7 +13,7 @@ const sidebarList = [
 ]
 </script>
 <template>
-  <aside class="bg-white self-start shadow-sm border h-screen w-64 border-gray-200 p-4">
+  <aside class="bg-white self-start shadow-sm border h-screen w-64 min-w-64 border-gray-200 p-4">
     <RouterLink to="/" class="font-bold bg-transparent! px-3 w-full flex cursor-pointer"
       >Technical Test FE</RouterLink
     >
@@ -22,7 +22,7 @@ const sidebarList = [
         :to="list.path"
         v-for="list in sidebarList"
         :key="list.path"
-        class="flex hover:bg-orange-600! flex-row gap-3 hover:text-white text-gray-600 font-semibold items-center cursor-pointer transition-all duration-150 px-3 py-2 rounded-xl"
+        class="flex hover:bg-orange-600! flex-row gap-3 hover:text-white text-gray-600 items-center cursor-pointer transition-all duration-150 px-3 py-2 rounded-xl"
       >
         <span :class="list.icon" />
         <span>{{ list.name }}</span>

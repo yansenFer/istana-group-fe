@@ -7,7 +7,7 @@ import SidebarLayout from './SidebarLayout.vue'
     <SidebarLayout />
     <div class="w-full relative max-h-screen overflow-y-auto">
       <HeaderLayout />
-      <main class="p-5">
+      <main class="p-5 flex flex-col w-full gap-5">
         <slot />
       </main>
     </div>
