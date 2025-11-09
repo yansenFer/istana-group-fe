@@ -4,6 +4,8 @@ import LoginAdminView from '@/views/LoginAdminView.vue'
 import Cookies from 'universal-cookie'
 import UserView from '@/views/user/UserView.vue'
 import FormUserView from '@/views/user/FormUserView.vue'
+import ProductView from '@/views/products/ProductView.vue'
+import FormProductView from '@/views/products/FormProductView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +35,21 @@ const router = createRouter({
       name: 'edit user',
       component: FormUserView,
     },
+    {
+      path: '/product',
+      name: 'product',
+      component: ProductView,
+    },
+    {
+      path: '/product/create-products',
+      name: 'create product',
+      component: FormProductView,
+    },
+    {
+      path: '/product/edit-product/:id',
+      name: 'edit product',
+      component: FormProductView,
+    },
   ],
 })
 
@@ -49,7 +66,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.name === 'Login' && token) {
     console.log('trigger 2')
-    return router.replace({ name: 'Home' })
+    return router.replace({ name: 'home' })
   }
 
   next()

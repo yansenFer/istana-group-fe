@@ -17,6 +17,7 @@ const props = defineProps<{
   onDelete?: (e: string) => void
   isLoading?: boolean
   onCreate: () => void
+  createName: string
 }>()
 </script>
 
@@ -24,7 +25,7 @@ const props = defineProps<{
   <div class="overflow-x-auto w-full flex flex-col gap-5">
     <div class="flex flex-row justify-between w-full">
       <span class="font-bold">{{ props.tableName }}</span>
-      <ButtonAction @click="onCreate" class="bg-green-700! w-32! mb-5" button-name="Create User" />
+      <ButtonAction @click="onCreate" class="bg-green-700! w-32! mb-5" :button-name="createName" />
     </div>
     <table class="table table-xs w-full">
       <thead>
@@ -39,9 +40,29 @@ const props = defineProps<{
       <tbody v-if="props.rows.length > 0">
         <tr class="border-b border-gray-200" v-for="(row, rowIndex) in props.rows" :key="rowIndex">
           <td class="py-3" v-for="(header, colIndex) in props.headers" :key="colIndex">
-            {{ row[header.key] }}
+            <!-- tampilkan gambar kalau key-nya image -->
+            <template v-if="header.key === 'image'">
+              <a
+                :href="row[header.key]"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block"
+              >
+                <img
+                  :src="row[header.key]"
+                  :alt="`${row[header.key]} - ${rowIndex.toString()}`"
+                  class="w-12 h-12 rounded-md hover:scale-105 transition-transform"
+                  @error="(e) => (e.target as HTMLImageElement).src = '/no-image.png'"
+                />
+              </a>
+            </template>
+
+            <!-- selain image, tampilkan teks biasa -->
+            <template v-else>
+              {{ row[header.key] }}
+            </template>
           </td>
-          <td :v-if="isAction" class="py-3 flex gap-2">
+          <td :v-if="isAction" class="py-3 flex gap-2 items-center justify-center">
             <button
               class="text-yellow-600 cursor-pointer hover:underline"
               @click="props.onEdit && props.onEdit(row.id.toString())"

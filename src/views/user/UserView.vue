@@ -95,6 +95,7 @@ const rows = computed(() =>
     <BaseCard>
       <div class="flex flex-col w-full">
         <TableList
+          create-name="Create User"
           :onDelete="(e) => showAlert(e)"
           :onEdit="(e) => routeForm('edit', e)"
           :is-action="true"
