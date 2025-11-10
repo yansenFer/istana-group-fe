@@ -2,10 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginAdminView from '@/views/LoginAdminView.vue'
 import Cookies from 'universal-cookie'
-import UserView from '@/views/user/UserView.vue'
-import FormUserView from '@/views/user/FormUserView.vue'
-import ProductView from '@/views/products/ProductView.vue'
-import FormProductView from '@/views/products/FormProductView.vue'
+import UserView from '@/views/admin/user/UserView.vue'
+import FormUserView from '@/views/admin/user/FormUserView.vue'
+import ProductView from '@/views/admin/products/ProductView.vue'
+import FormProductView from '@/views/admin/products/FormProductView.vue'
+import ProductListView from '@/views/user/ProductListView.vue'
+import DetailProductView from '@/views/user/DetailProductView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +52,16 @@ const router = createRouter({
       name: 'edit product',
       component: FormProductView,
     },
+    {
+      path: '/shop/product',
+      name: 'shop product',
+      component: ProductListView,
+    },
+    {
+      path: '/shop/product/detail/:id',
+      name: 'shop product detail',
+      component: DetailProductView,
+    },
   ],
 })
 
@@ -57,16 +69,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const cookies = new Cookies(null, { path: '/' })
   const token = cookies.get('auth')
-  console.log('trigger')
 
-  if (to.name !== 'login' && !token) {
-    console.log('trigger 1')
-    return router.replace({ path: '/login-admin' })
-  }
+  if (!to.name?.toString().includes('shop')) {
+    if (to.name !== 'login' && !token) {
+      return router.replace({ path: '/login-admin' })
+    }
 
-  if (to.name === 'Login' && token) {
-    console.log('trigger 2')
-    return router.replace({ name: 'home' })
+    if (to.name === 'Login' && token) {
+      return router.replace({ name: 'home' })
+    }
   }
 
   next()

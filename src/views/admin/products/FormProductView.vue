@@ -1,12 +1,12 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import DashboardLayout from '@/components/Layout/DashboardLayout.vue';
+import DashboardLayout from '@/components/Layout/admin/DashboardAdmin.vue';
 import BaseCard from '@/components/UI/BaseCard.vue';
 import ButtonAction from '@/components/UI/ButtonAction.vue';
 import InputField from '@/components/UI/InputField.vue';
 import router from '@/router';
-import { createUser, editUser, getUser } from '@/service/api/user.api';
-import type { IUserForm } from '@/types/IUser';
+import { createProduct, editProduct, getProduct } from '@/service/api/product.api';
+import type { IProductForm } from '@/types/IProduct';
 import { useForm } from 'vee-validate';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -19,15 +19,18 @@ const typeAction = route.query.type
 const paramId = route.params.id
 
 const schema = Yup.object().shape({
-  username: Yup.string().required(),
-  email: Yup.string().email().required(),
-  password: Yup.string().required(),
+  title: Yup.string().required(),
+  price: Yup.number().required(),
+  description: Yup.string().required(),
+  category: Yup.string().required(),
 })
 
 const initialData = {
-  username: '',
-  email: '',
-  password: '',
+  title: '',
+  price: 0,
+  description: '',
+  category: '',
+  image: ''
 }
 
 // ✅ Gunakan useForm() langsung
@@ -37,30 +40,32 @@ const { handleSubmit, setFieldValue, resetForm, isSubmitting } = useForm({
 });
 
 const onSubmit = handleSubmit(async (values) => {
-  const data: IUserForm = values
+  const data: IProductForm = values
 
   const dataObj = {
-    username: data.username,
-    email: data.email,
-    password: data.password,
+    title: data.title,
+    price: data.price,
+    description: data.description,
+    category: data.category,
+    image: data.image
   }
 
   if (typeAction === 'create') {
-    await createUser(dataObj)
+    await createProduct(dataObj)
     .then((res) => {
       if (res.status === 201) {
         $toast.success('Create success')
-        router.replace({ path: '/user' })
+        router.replace({ path: '/product' })
         resetForm()
       }
     })
     .catch((error) => $toast.error(error))
   } else {
-    await editUser(paramId?.toString()!, dataObj)
+    await editProduct(paramId?.toString()!, dataObj)
     .then((res) => {
       if (res.status === 200) {
         $toast.success('Edit success')
-        router.replace({ path: '/user' })
+        router.replace({ path: '/product' })
         resetForm()
       }
     })
@@ -71,12 +76,13 @@ const onSubmit = handleSubmit(async (values) => {
 
 
 async function fetchData() {
-  await getUser(paramId?.toString()).then((res) => {
+  await getProduct(paramId?.toString()).then((res) => {
     if (res.status === 200) {
-      console.log(res.data)
-      setFieldValue('username', res.data.username)
-      setFieldValue('email', res.data.email)
-      setFieldValue('password', res.data.password)
+      setFieldValue('category', res.data.category)
+      setFieldValue('description', res.data.description)
+      setFieldValue('image', res.data.image)
+      setFieldValue('price', res.data.price)
+      setFieldValue('title', res.data.title)
     }
   }).catch((err) => $toast.error(err))
 }
@@ -92,9 +98,11 @@ onMounted(() => {
     <BaseCard>
       <form :submit="onSubmit" class="flex flex-col w-full">
         <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-1 gap-5 w-full">
-          <InputField label-name="Username" name="username" />
-          <InputField label-name="Email" name="email" />
-          <InputField label-name="Password" name="password" />
+          <InputField label-name="Title" name="title" />
+          <InputField label-name="Price" name="price" />
+          <InputField label-name="Description" name="description" />
+          <InputField label-name="Category" name="category" />
+          <InputField label-name="Image" name="image" />
         </div>
         <div class="flex w-full justify-end">
           <ButtonAction :onClick="onSubmit" :is-loading="isSubmitting" class="w-32! flex mt-5" :disabled="isSubmitting" :button-name="typeAction === 'create' ? 'Create' : 'Edit'" />

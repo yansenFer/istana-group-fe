@@ -1,6 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import DashboardLayout from '@/components/Layout/DashboardLayout.vue'
+import DashboardLayout from '@/components/Layout/admin/DashboardAdmin.vue'
 import BaseCard from '@/components/UI/BaseCard.vue'
 import TableList from '@/components/UI/TableList.vue'
 import router from '@/router'

@@ -15,7 +15,7 @@ const props = defineProps<{
     :disabled="props.disabled"
     :type="props.type"
     :onclick="onClick"
-    class="flex cursor-pointer w-full rounded-lg p-1 items-center justify-center bg-orange-600"
+    class="flex cursor-pointer w-full rounded-lg p-1 px-3 items-center justify-center bg-orange-600"
   >
     <span v-if="!props.isLoading" class="text-white">{{ props.buttonName }}</span>
     <span v-else class="flex items-center gap-2 text-white">

@@ -72,6 +72,8 @@ async function onSubmit(values: any, { resetForm }: { resetForm: () => void }) {
       <InputField name="username" label-name="Username" />
       <InputField type="password" name="password" label-name="Password" />
       <ButtonAction type="submit" button-name="Login" :disabled="isSubmitting" :is-loading="isSubmitting" />
+
+      <span class="font-extralight text-gray-600 text-[12px]">Ingin ke halaman produk? <RouterLink class="hover:underline text-blue-600" to="/shop/product">Halaman produk</RouterLink></span>
     </Form>
   </div>
 </template>

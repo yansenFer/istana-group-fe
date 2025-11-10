@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import HeaderLayout from './HeaderLayout.vue'
-import SidebarLayout from './SidebarLayout.vue'
+import HeaderAdmin from './HeaderAdmin.vue';
+import SidebarAdmin from './SidebarAdmin.vue';
+
+
 </script>
 <template>
   <div class="flex flex-row w-full">
-    <SidebarLayout />
+    <SidebarAdmin />
     <div class="w-full relative max-h-screen overflow-y-auto">
-      <HeaderLayout />
+      <HeaderAdmin />
       <main class="p-5 flex flex-col w-full gap-5">
         <slot />
       </main>

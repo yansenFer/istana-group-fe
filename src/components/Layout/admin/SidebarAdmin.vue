@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+
+const router = useRoute()
+const name = router.name
 const sidebarList = [
   {
     name: 'User',
@@ -23,6 +27,7 @@ const sidebarList = [
         v-for="list in sidebarList"
         :key="list.path"
         class="flex hover:bg-orange-600! flex-row gap-3 hover:text-white text-gray-600 items-center cursor-pointer transition-all duration-150 px-3 py-2 rounded-xl"
+        :class="name!.toString().includes(list.name.toLowerCase()) ? 'bg-orange-600 text-white' : 'bg-transparent'"
       >
         <span :class="list.icon" />
         <span>{{ list.name }}</span>
