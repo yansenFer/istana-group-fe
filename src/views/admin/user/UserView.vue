@@ -16,7 +16,7 @@ const $toast = useToast()
 
 function routeForm(type: 'create' | 'edit', id?: string) {
   if (type === 'create') return router.push({ name: 'create user', query: { type } })
-  if(type === "edit") return router.push({name: 'edit user', params: {id}})
+  if (type === 'edit') return router.push({ name: 'edit user', params: { id } })
 }
 
 const showAlert = (id: string) => {
@@ -33,7 +33,6 @@ async function deleteList(id: string) {
     }
   })
 }
-
 
 const fetchData = async () => {
   await getUser()
@@ -59,7 +58,6 @@ const headers = [
   { key: 'email', label: 'Email' },
   { key: 'address', label: 'Address' },
   { key: 'phone', label: 'Phone' },
-
 ]
 
 const rows = computed(() =>
@@ -70,7 +68,7 @@ const rows = computed(() =>
     email: user.email,
     password: user.password,
     address: `${user.address.street} ${user.address.number && `, ${user.address.number}`} ${user.address.city && `, ${user.address.city}`} ${user.address.zipcode && `, ${user.address.zipcode}}`}`,
-    phone: user.phone
+    phone: user.phone,
   })),
 )
 

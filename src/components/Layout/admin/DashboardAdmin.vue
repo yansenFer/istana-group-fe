@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import HeaderAdmin from './HeaderAdmin.vue';
-import SidebarAdmin from './SidebarAdmin.vue';
-
-
+import HeaderAdmin from './HeaderAdmin.vue'
+import SidebarAdmin from './SidebarAdmin.vue'
 </script>
 <template>
   <div class="flex flex-row w-full">

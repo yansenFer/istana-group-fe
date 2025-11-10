@@ -5,7 +5,7 @@ import BaseCard from '@/components/UI/BaseCard.vue'
 import TableList from '@/components/UI/TableList.vue'
 import router from '@/router'
 import { deleteProduct, getProduct } from '@/service/api/product.api'
-import type { IProduct } from '@/types/IProduct'
+import type { IProduct } from '@/types'
 import { computed } from '@vue/reactivity'
 import { onMounted, ref } from 'vue'
 import { useToast } from 'vue-toast-notification'
@@ -16,7 +16,7 @@ const $toast = useToast()
 
 function routeForm(type: 'create' | 'edit', id?: string) {
   if (type === 'create') return router.push({ name: 'create product', query: { type } })
-  if(type === "edit") return router.push({name: 'edit product', params: {id}})
+  if (type === 'edit') return router.push({ name: 'edit product', params: { id } })
 }
 
 const showAlert = (id: string) => {
@@ -55,7 +55,6 @@ const headers = [
   { key: 'description', label: 'Description' },
   { key: 'rating', label: 'Rating' },
   { key: 'price', label: 'Price' },
-
 ]
 
 const rows = computed(() =>
@@ -66,7 +65,7 @@ const rows = computed(() =>
     category: product.category,
     description: product.description,
     rating: product.rating.rate,
-    price: product.price
+    price: product.price,
   })),
 )
 </script>

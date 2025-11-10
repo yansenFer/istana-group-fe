@@ -1,16 +1,16 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import DashboardLayout from '@/components/Layout/admin/DashboardAdmin.vue';
-import BaseCard from '@/components/UI/BaseCard.vue';
-import ButtonAction from '@/components/UI/ButtonAction.vue';
-import InputField from '@/components/UI/InputField.vue';
-import router from '@/router';
-import { createProduct, editProduct, getProduct } from '@/service/api/product.api';
-import type { IProductForm } from '@/types/IProduct';
-import { useForm } from 'vee-validate';
-import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useToast } from 'vue-toast-notification';
+import DashboardLayout from '@/components/Layout/admin/DashboardAdmin.vue'
+import BaseCard from '@/components/UI/BaseCard.vue'
+import ButtonAction from '@/components/UI/ButtonAction.vue'
+import InputField from '@/components/UI/InputField.vue'
+import router from '@/router'
+import { createProduct, editProduct, getProduct } from '@/service/api/product.api'
+import type { IProductForm } from '@/types'
+import { useForm } from 'vee-validate'
+import { onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useToast } from 'vue-toast-notification'
 import * as Yup from 'yup'
 
 const route = useRoute()
@@ -30,14 +30,14 @@ const initialData = {
   price: 0,
   description: '',
   category: '',
-  image: ''
+  image: '',
 }
 
 // ✅ Gunakan useForm() langsung
 const { handleSubmit, setFieldValue, resetForm, isSubmitting } = useForm({
   validationSchema: schema,
   initialValues: initialData,
-});
+})
 
 const onSubmit = handleSubmit(async (values) => {
   const data: IProductForm = values
@@ -47,50 +47,49 @@ const onSubmit = handleSubmit(async (values) => {
     price: data.price,
     description: data.description,
     category: data.category,
-    image: data.image
+    image: data.image,
   }
 
   if (typeAction === 'create') {
     await createProduct(dataObj)
-    .then((res) => {
-      if (res.status === 201) {
-        $toast.success('Create success')
-        router.replace({ path: '/product' })
-        resetForm()
-      }
-    })
-    .catch((error) => $toast.error(error))
+      .then((res) => {
+        if (res.status === 201) {
+          $toast.success('Create success')
+          router.replace({ path: '/product' })
+          resetForm()
+        }
+      })
+      .catch((error) => $toast.error(error))
   } else {
     await editProduct(paramId?.toString()!, dataObj)
-    .then((res) => {
-      if (res.status === 200) {
-        $toast.success('Edit success')
-        router.replace({ path: '/product' })
-        resetForm()
-      }
-    })
-    .catch((error) => $toast.error(error))
+      .then((res) => {
+        if (res.status === 200) {
+          $toast.success('Edit success')
+          router.replace({ path: '/product' })
+          resetForm()
+        }
+      })
+      .catch((error) => $toast.error(error))
   }
-
 })
 
-
 async function fetchData() {
-  await getProduct(paramId?.toString()).then((res) => {
-    if (res.status === 200) {
-      setFieldValue('category', res.data.category)
-      setFieldValue('description', res.data.description)
-      setFieldValue('image', res.data.image)
-      setFieldValue('price', res.data.price)
-      setFieldValue('title', res.data.title)
-    }
-  }).catch((err) => $toast.error(err))
+  await getProduct(paramId?.toString())
+    .then((res) => {
+      if (res.status === 200) {
+        setFieldValue('category', res.data.category)
+        setFieldValue('description', res.data.description)
+        setFieldValue('image', res.data.image)
+        setFieldValue('price', res.data.price)
+        setFieldValue('title', res.data.title)
+      }
+    })
+    .catch((err) => $toast.error(err))
 }
 
 onMounted(() => {
-  fetchData();
-});
-
+  fetchData()
+})
 </script>
 
 <template>
@@ -105,7 +104,13 @@ onMounted(() => {
           <InputField label-name="Image" name="image" />
         </div>
         <div class="flex w-full justify-end">
-          <ButtonAction :onClick="onSubmit" :is-loading="isSubmitting" class="w-32! flex mt-5" :disabled="isSubmitting" :button-name="typeAction === 'create' ? 'Create' : 'Edit'" />
+          <ButtonAction
+            :onClick="onSubmit"
+            :is-loading="isSubmitting"
+            class="w-32! flex mt-5"
+            :disabled="isSubmitting"
+            :button-name="typeAction === 'create' ? 'Create' : 'Edit'"
+          />
         </div>
       </form>
     </BaseCard>

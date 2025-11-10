@@ -1,6 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script setup lang="ts">
-import ButtonAction from './ButtonAction.vue';
+import ButtonAction from './ButtonAction.vue'
 import LoadingView from './LoadingView.vue'
 
 type Header = {
@@ -52,7 +52,7 @@ const props = defineProps<{
                   :src="row[header.key]"
                   :alt="`${row[header.key]} - ${rowIndex.toString()}`"
                   class="w-12 h-12 rounded-md hover:scale-105 transition-transform"
-                  @error="(e) => (e.target as HTMLImageElement).src = '/no-image.png'"
+                  @error="(e) => ((e.target as HTMLImageElement).src = '/no-image.png')"
                 />
               </a>
             </template>
@@ -80,10 +80,7 @@ const props = defineProps<{
       </tbody>
       <tbody v-if="isLoading">
         <tr>
-          <td
-            class="py-5"
-            :colspan="props.headers.length + (props.isAction ? 1 : 0)"
-          >
+          <td class="py-5" :colspan="props.headers.length + (props.isAction ? 1 : 0)">
             <div class="flex justify-center items-center">
               <LoadingView class="text-black h-14! w-14!" />
             </div>

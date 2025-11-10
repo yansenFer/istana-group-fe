@@ -1,15 +1,15 @@
 import { handleApiError } from '../apiError'
 import { axiosInstance } from '../axiosInstance'
 import Cookies from 'universal-cookie'
-import { PRODUCT_ENDPOINT } from '../endpoints'
-import type { IProductForm } from '@/types'
+import { CART_ENDPOINT } from '../endpoints'
+import type { ICartForm } from '@/types'
 
 const cookies = new Cookies(null, { path: '/' })
 const token = cookies.get('auth')
 
-export const createProduct = async (data: IProductForm) => {
+export const createCart = async (data: ICartForm) => {
   try {
-    return await axiosInstance.post(PRODUCT_ENDPOINT, data, {
+    return await axiosInstance.post(CART_ENDPOINT, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -19,9 +19,9 @@ export const createProduct = async (data: IProductForm) => {
   }
 }
 
-export const getProduct = async (id?: string) => {
+export const getCartUser = async (id?: string) => {
   try {
-    return await axiosInstance.get(`${PRODUCT_ENDPOINT}${id ? `/${id}` : ''}`, {
+    return await axiosInstance.get(`${CART_ENDPOINT}${id ? `/${id}` : ''}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -31,9 +31,9 @@ export const getProduct = async (id?: string) => {
   }
 }
 
-export const editProduct = async (id: string, data: IProductForm) => {
+export const editCart = async (id: string, data: ICartForm) => {
   try {
-    return await axiosInstance.put(`${PRODUCT_ENDPOINT}${id ? `/${id}` : ''}`, data, {
+    return await axiosInstance.put(`${CART_ENDPOINT}${id ? `/${id}` : ''}`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -43,9 +43,9 @@ export const editProduct = async (id: string, data: IProductForm) => {
   }
 }
 
-export const deleteProduct = async (id: string) => {
+export const deleteCart = async (id: string) => {
   try {
-    return await axiosInstance.delete(`${PRODUCT_ENDPOINT}${id ? `/${id}` : ''}`, {
+    return await axiosInstance.delete(`${CART_ENDPOINT}${id ? `/${id}` : ''}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
