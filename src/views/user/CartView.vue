@@ -3,6 +3,7 @@ import ShopLayout from '@/components/Layout/user/ShopLayout.vue'
 import router from '@/router'
 import { useCartStore } from '@/stores/cart'
 import type { IProduct } from '@/types'
+import { computed } from 'vue'
 
 const cart = useCartStore()
 
@@ -21,6 +22,15 @@ function handleRemove(data: IProduct) {
 function handleRemoveItem(data: IProduct) {
   cart.removeItem(data)
 }
+
+const subtotal = computed(() =>
+  cart.items.reduce((acc, item) => acc + item.qty * item.products.price, 0),
+)
+
+const tax = computed(() => Math.floor(subtotal.value * 0.1 * 100) / 100)
+const total = computed(() => {
+  return Math.round((subtotal.value + tax.value) * 100) / 100
+})
 </script>
 
 <template>
@@ -62,7 +72,7 @@ function handleRemoveItem(data: IProduct) {
               </div>
               <div class="text-right">
                 <p class="font-bold text-gray-900 mb-3">
-                  {{ cart.products.price * cart.qty }}
+                  {{ (cart.products.price * cart.qty).toFixed(2) }}
                 </p>
                 <button
                   @click="() => handleRemoveItem(cart.products)"
@@ -82,17 +92,17 @@ function handleRemoveItem(data: IProduct) {
             <div class="space-y-3 mb-4 pb-4 border-b border-gray-200">
               <div class="flex justify-between text-gray-600">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>{{ subtotal.toFixed(2) }}</span>
               </div>
               <div class="flex justify-between text-gray-600">
                 <span>Tax (10%)</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>{{ tax.toFixed(2) }}</span>
               </div>
             </div>
 
             <div class="flex justify-between text-xl font-bold text-gray-900 mb-6">
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{{ total.toFixed(2) }}</span>
             </div>
 
             <button

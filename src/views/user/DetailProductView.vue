@@ -5,10 +5,12 @@ import router from '@/router'
 import { getProduct } from '@/service/api/product.api'
 import { useCartStore } from '@/stores/cart'
 import type { IProduct } from '@/types'
+import Cookies from 'universal-cookie'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useToast } from 'vue-toast-notification'
 
+const cookies = new Cookies()
 const route = useRoute()
 const paramId = route.params.id
 const $toast = useToast()
@@ -22,8 +24,12 @@ function handleBack() {
 }
 
 function handleAddToCart() {
-  cart.addToCart(dataProduct.value!)
-  $toast.success('Successfully added to cart')
+  if (cookies.get('auth')) {
+    cart.addToCart(dataProduct.value!)
+    $toast.success('Successfully added to cart')
+  } else {
+    $toast.error('You need to log in to add items to your cart')
+  }
 }
 
 const fetchData = async () => {
