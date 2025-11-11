@@ -46,3 +46,9 @@ npm run build
 ```sh
 npm run lint
 ```
+
+Note: Untuk cart tidak  di integrasi dengan fakestoreapi dikarenakan response body tidak sesuai dengan dokumentasi
+![WhatsApp Image 2025-11-11 at 08 52 00_40b4bb8e](https://github.com/user-attachments/assets/00f78d7d-26d5-4b5f-9743-e15d0354da0a)
+![WhatsApp Image 2025-11-11 at 08 52 19_853edbbe](https://github.com/user-attachments/assets/916e5c4b-1ece-48e4-998d-7dc475f70230)
+
+
